@@ -10,6 +10,15 @@ Some ideas stolen from: from https://github.com/stdbrouw/django-treebeard-dag
 from django.db import models
 from django.core.exceptions import ValidationError
 
+class NodeManager(models.Manager):
+    """
+    Manager for useful queries on all nodes.
+    """
+    def get_roots(self):
+        return self.filter(_parents__isnull=True)
+
+    def get_leaves(self):
+        return self.filter(children__isnull=True)
 
 class NodeNotReachableException (Exception):
     """
@@ -252,6 +261,8 @@ def node_factory(edge_model, children_null = True, base_model = models.Model):
                 symmetrical = False,
                 through     = edge_model,
                 related_name = '_parents') # NodeBase.parents() is a function
+
+        objects = NodeManager()
 
     return Node
 
