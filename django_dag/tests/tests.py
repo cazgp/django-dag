@@ -1,7 +1,7 @@
 """
 Unit tests for django-dag
 """
-
+print "hello"
 
 __test__ = {"doctest": """
 
@@ -129,6 +129,9 @@ set([<ConcreteNode: # 2>, <ConcreteNode: # 4>])
 
 >>> p1 in p6.ancestors_set()
 False
+
+>>> roots = ConcreteNode.objects.get_roots()
+set([<ConcreteNode: # 1>, <ConcreteNode: # 2>, <ConcreteNode: # 3>, <ConcreteNode: # 4>])
 
 
 """}
