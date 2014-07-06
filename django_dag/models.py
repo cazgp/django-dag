@@ -246,7 +246,7 @@ def edge_factory(node_model, child_to_field = "id", parent_to_field = "id", conc
 
     return Edge
 
-def node_factory(edge_model, children_null = True, base_model = models.Model):
+def node_factory(edge_model, children_null = True, base_model = models.Model, field = models.ManyToManyField):
     """
     Dag Node factory
     """
@@ -254,7 +254,7 @@ def node_factory(edge_model, children_null = True, base_model = models.Model):
         class Meta:
             abstract        = True
 
-        children  = models.ManyToManyField(
+        children  = field(
                 'self',
                 null        = children_null,
                 blank       = children_null,
