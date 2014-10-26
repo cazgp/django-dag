@@ -212,7 +212,7 @@ class NodeBase(object):
             raise ValidationError('Self links are not allowed')
         if child in parent.ancestors_set():
             raise ValidationError('The object is an ancestor.')
-        if child in parent.descendants_set():
+        if child not in parent.children.all() and child in parent.descendants_set():
             raise ValidationError('The object is a descendant.')
 
 
